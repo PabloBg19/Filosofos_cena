@@ -8,7 +8,7 @@ Proyecto en Java utilizando Semáforos
 **Título del Proyecto:**  
 📌 *El Problema de la Cena de los Filósofos*
 
-**Asignatura:** Diseño de Interfaces Web – Tema 7-8  
+
 **Alumno:** Pablo Belascoain  
 **Fecha:** 17/11/2025
 
