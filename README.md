@@ -60,11 +60,7 @@ Ambos problemas deben evitarse con un diseño cuidadoso.
 
 ## 🧩 Diagrama de clases
 
-*(Incluye aquí tu imagen o diagrama UML)*
 
-```
-[ESPACIO PARA DIAGRAMA]
-```
 
 ### 📐 Estructura general
 
@@ -158,9 +154,8 @@ Esto elimina la posibilidad de un ciclo de espera circular.
 
 ### 📸 Salida del programa *(GIF recomendado)*
 
-```
-[ESPACIO PARA GIF / CAPTURA]
-```
+![gif](gif.gif)
+
 
 ### 📊 Análisis de la salida
 
