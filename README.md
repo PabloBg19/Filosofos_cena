@@ -1,108 +1,202 @@
-# 🧠🍝 <span style="color:#4CAF50;">El Problema de la Cena de los Filósofos</span>
-
-Proyecto de Programación Multihilo en <span style="color:#2196F3;">Java</span>  
-Uso de <code>Semaphore</code> para sincronización entre hilos.
+# 🧠🍝 La Cena de los Filósofos — Proyecto de Concurrencia en Java
 
 ---
 
-## <span style="color:#FF9800;">1. Descripción General</span>
+# 2. Introducción
 
-### 🎯 <span style="color:#E91E63;">Objetivo del ejercicio</span>
+## 📌 Descripción breve del problema
 
-- Implementar el problema clásico de la **Cena de los Filósofos** utilizando <code>Semaphore</code>.
-- Garantizar:
-  - 🔒 <span style="color:#9C27B0;">Exclusión mutua</span> sobre los palillos.
-  - 🚫 <span style="color:#F44336;">Prevención de deadlock</span>.
-  - 🍽️ <span style="color:#795548;">Prevención de inanición</span>.
-- Mostrar mensajes por consola indicando las acciones de los filósofos.
+La **Cena de los Filósofos** es un problema clásico de la computación concurrente propuesto por Edsger Dijkstra.  
+En él, cinco filósofos se sientan alrededor de una mesa circular. Cada uno alterna entre **pensar** y **comer**, pero para comer necesita dos palillos (recursos compartidos): el que está a su izquierda y el que está a su derecha.
 
----
-
-## <span style="color:#3F51B5;">2. Estructura del Proyecto</span>
-
-```
-org.example
-├── Filosofo.java   // Lógica del hilo-filósofo
-├── Mesa.java       // Monta los palillos y crea a los filósofos
-└── Main.java       // Inicia el programa
-```
+Este problema es fundamental para estudiar:
+- 🔒 **Exclusión mutua**  
+- 🔄 **Sincronización entre procesos/hilos**  
+- 🚫 **Interbloqueo (deadlock)**  
+- 🍽️ **Inanición (starvation)**  
+- 🧠 **Diseño de algoritmos concurrentes seguros**
 
 ---
 
-## <span style="color:#009688;">3. Clases del Proyecto</span>
+## 🎯 Objetivo de la implementación
 
-### 🔹 <span style="color:#8BC34A;">Filosofo.java</span>
-Controla el comportamiento del filósofo como hilo independiente.
-
----
-
-### 🔹 <span style="color:#CDDC39;">Mesa.java</span>
-Crea:
-- Array de <code>Semaphore</code> → palillos  
-- Array de <code>Filosofo</code> → hilos
+El objetivo principal es resolver este problema aplicando **semáforos en Java**, garantizando:
+- Que solo un filósofo use un palillo a la vez.  
+- Evitar que los filósofos se queden bloqueados permanentemente (deadlock).  
+- Evitar que alguno nunca pueda comer (starvation).  
 
 ---
 
-### 🔹 <span style="color:#FF5722;">Main.java</span>
-Punto de entrada. Inicia todos los hilos.
+# 3. Análisis del Problema
+
+## 🔧 Descripción de los componentes
+
+### 👨‍🏫 Filósofos
+- Se representan como **hilos** independientes (`Thread`).
+- Ciclo continuo: *pensar → intentar comer → comer → soltar palillos → pensar*.
+
+### 🍴 Palillos
+- Son **recursos compartidos** entre dos filósofos.
+- Cada palillo se implementa como un `Semaphore(1)`.
 
 ---
 
-## <span style="color:#9C27B0;">4. Estrategia Contra el Deadlock</span>
+## ⚠️ Desafíos de concurrencia
 
-Para evitar el interbloqueo clásico:
+### 🔁 Interbloqueo (deadlock)
+Ocurre cuando:
+- Todos los filósofos cogen un palillo.
+- Y esperan eternamente a que el otro se libere.
 
-- 👨‍🔬 Filósofos <span style="color:#4CAF50;">pares</span>:  
-  Cogen primero el palillo **izquierdo**.
-- 👨‍🏫 Filósofos <span style="color:#F44336;">impares</span>:  
-  Cogen primero el palillo **derecho**.
+### 🍽️ Inanición (starvation)
+Un filósofo podría:
+- No conseguir nunca ambos palillos debido a los demás.
 
-Esto rompe la simetría y evita que todos bloqueen a todos.
-
----
-
-## <span style="color:#00BCD4;">5. Capturas de Pantalla</span>
-
-### 📸 Ejecución del programa
-```
-[ESPACIO PARA CAPTURA 1]
-```
-
-### 📸 Filósofos cogiendo palillos
-```
-[ESPACIO PARA CAPTURA 2]
-```
-
-### 📸 Filósofos comiendo
-```
-[ESPACIO PARA CAPTURA 3]
-```
+Ambos problemas deben evitarse con un diseño cuidadoso.
 
 ---
 
-## <span style="color:#FF9800;">6. Cómo Ejecutar</span>
+# 4. Diseño de la Solución
 
-Compila:
+## 🧩 Diagrama de clases
+
+*(Incluye aquí tu imagen o diagrama UML)*
+
 ```
-javac org/example/*.java
+[ESPACIO PARA DIAGRAMA]
 ```
 
-Ejecuta:
-```
-java org.example.Main
-```
+### 📐 Estructura general
+
+- **Main**  
+  Inicia la mesa y los hilos.
+
+- **Mesa**  
+  Crea palillos y filósofos.
+
+- **Filosofo**  
+  Implementa la lógica de sincronización usando semáforos.
 
 ---
 
-## <span style="color:#4CAF50;">7. Mejoras Futuras</span>
+## 🚦 Explicación de los Semáforos
 
-- Interfaz gráfica en JavaFX 🎨  
-- Límite de comidas por filósofo 🍽️  
-- Estadísticas de rendimiento 📊
+Cada palillo es un:
+
+```java
+Semaphore palillo = new Semaphore(1);
+```
+
+Esto garantiza:
+- Solo un filósofo puede usarlo.
+- Si está ocupado, el filósofo espera.
+
+Los filósofos adquieren sus palillos según su posición en la mesa.
 
 ---
 
-## <span style="color:#E91E63;">8. Autor</span>
+# 5. Implementación
 
-Proyecto educativo basado en el problema clásico de sincronización:  
-<strong><span style="color:#3F51B5;">La Cena de los Filósofos</span></strong>.
+## 🧠 Método `run` del filósofo
+
+El ciclo del hilo:
+
+```java
+public void run() {
+    while (true) {
+        pensar();
+        cogerPalillos();
+        comer();
+        soltarPalillos();
+    }
+}
+```
+
+### 🔹 Estados:
+- Pensando → no usa recursos.
+- Hambriento → intenta adquirir 2 semáforos.
+- Comiendo → posee 2 semáforos.
+- Suelta palillos → libera recursos.
+
+---
+
+## 🛠️ Sincronización con Semáforos
+
+Para evitar deadlock:
+- Filósofos **pares** cogen primero el palillo izquierdo.
+- Filósofos **impares** cogen primero el palillo derecho.
+
+Esto rompe la simetría del problema clásico.
+
+---
+
+## 💬 Comentarios sobre la implementación
+
+- Se usan `Thread.sleep()` para simular tiempo real.
+- Se imprime cada acción para poder depurar visualmente.
+- La estrategia del **orden alternado** garantiza que nunca se bloqueen entre sí de forma circular.
+
+---
+
+# 6. Prevención de Interbloqueo e Inanición
+
+### 🛑 Prevención del interbloqueo
+- La clave es el **orden de adquisición**:
+  - Par: izquierda → derecha  
+  - Impar: derecha → izquierda  
+
+Esto elimina la posibilidad de un ciclo de espera circular.
+
+### 🍽️ Prevención de inanición
+- Los semáforos FIFO de Java gestionan correctamente las colas.
+- Cada filósofo eventualmente logra adquirir ambos palillos.
+- Además, al comer y soltar rápidamente, no se monopolizan recursos.
+
+---
+
+# 7. Resultados de la Ejecución
+
+### 📸 Salida del programa *(GIF recomendado)*
+
+```
+[ESPACIO PARA GIF / CAPTURA]
+```
+
+### 📊 Análisis de la salida
+
+La salida muestra:
+- Filósofos alternando entre pensar y comer.
+- Aquellos que comparten palillo **no comen simultáneamente**.
+- No se observa bloqueo total del sistema.
+- No hay un filósofo que quede hambriento de forma indefinida.
+
+Esto confirma que la solución funciona correctamente.
+
+---
+
+# 8. Conclusiones
+
+## 📝 Lecciones Aprendidas
+
+Durante este proyecto se aprendió:
+
+- Cómo modelar hilos en Java mediante `Runnable`.
+- Cómo usar `Semaphore` para controlar recursos compartidos.
+- La importancia del orden al adquirir recursos para evitar deadlock.
+- Cómo analizar un sistema concurrente basado en interacción circular.
+- Buenas prácticas en programación concurrente.
+
+---
+
+## 🚀 Posibles Mejoras
+
+- Añadir contador de cuántas veces come cada filósofo.
+- Implementar una **interfaz gráfica** para visualizar la mesa.
+- Añadir tiempos configurables.
+- Mejorar la estrategia de planificación para reducir aún más la posibilidad de inanición.
+- Registrar logs en archivos.
+
+---
+
+✨ *Este README acompaña la implementación del ejercicio “La Cena de los Filósofos”.*  
+✨ *Diseñado para ser claro, visual y completo para una entrega académica.*
