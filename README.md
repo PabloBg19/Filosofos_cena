@@ -183,15 +183,6 @@ Durante este proyecto se aprendió:
 
 ---
 
-## 🚀 Posibles Mejoras
-
-- Añadir contador de cuántas veces come cada filósofo.
-- Implementar una **interfaz gráfica** para visualizar la mesa.
-- Añadir tiempos configurables.
-- Mejorar la estrategia de planificación para reducir aún más la posibilidad de inanición.
-- Registrar logs en archivos.
-
----
 
 ✨ *Este README acompaña la implementación del ejercicio “La Cena de los Filósofos”.*  
 ✨ *Diseñado para ser claro, visual y completo para una entrega académica.*
